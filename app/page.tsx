@@ -1,57 +1,43 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import Image from "next/image";
+import styles from "./page.module.css";
+import * as cv from "@techstark/opencv-js";
+import { useState } from "react";
 
 export default function Home() {
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js 13!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://beta.nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js 13</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Explore the Next.js 13 playground.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates/next.js/app-directory?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>Deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
+        <div>
+          <div className="inputoutput">
+            {selectedImage && (
+              <div>
+                <Image
+                  alt="not found"
+                  width={"250"}
+                  height={"250"}
+                  src={URL.createObjectURL(selectedImage)}
+                />
+                <br />
+                <button onClick={() => setSelectedImage(null)}>Remove</button>
+              </div>
+            )}
+            <div className="caption">
+              Image Source{" "}
+              <input
+                type="file"
+                name="myImage"
+                onChange={(e) => {
+                  setSelectedImage(e.target.files ? e.target.files[0] : null);
+                }}
+              />
+            </div>
+          </div>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
-  )
+  );
 }

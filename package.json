@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@techstark/opencv-js": "^4.6.0-release.1",
     "@types/node": "18.11.15",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
